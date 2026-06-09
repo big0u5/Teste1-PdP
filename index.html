@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paraíso das Plantas de Ibiúna</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --verde-musgo: #2D4A3E;
+            --verde-folha: #4A6741;
+            --marrom: #6B4423;
+            --creme: #F9F7F2;
+            --branco: #FFFFFF;
+            --texto: #2C2C2C;
+            --texto-claro: #5A5A5A;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--texto);
+            background-color: var(--creme);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+
+        /* Navegação */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(249, 247, 242, 0.92);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(45, 74, 62, 0.08);
+        }
+
+        .logo-nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-nav img {
+            height: 48px;
+            width: auto;
+            border-radius: 50%;
+        }
+
+        .logo-nav span {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--verde-musgo);
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--texto);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background: var(--verde-musgo);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--verde-musgo);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-mobile {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-mobile span {
+            width: 24px;
+            height: 2px;
+            background: var(--verde-musgo);
+            transition: 0.3s;
+        }
+
+        /* Hero */
+        .hero {
+            margin-top: 80px;
+            position: relative;
+            height: 92vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('Fachada.jpg') center/cover no-repeat;
+            filter: brightness(0.75);
+            transform: scale(1.02);
+            transition: transform 8s ease;
+        }
+
+        .hero:hover .hero-bg {
+            transform: scale(1.08);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(45,74,62,0.3), rgba(45,74,62,0.6));
+        }
+
+        .hero-content {
+            position: relative;
+            text-align: center;
+            color: var(--branco);
+            padding: 2rem;
+            max-width: 800px;
+        }
+
+        .hero-logo {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            margin-bottom: 2rem;
+            border: 3px solid rgba(255,255,255,0.3);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            font-weight: 300;
+            opacity: 0.95;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--branco);
+            color: var(--verde-musgo);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .btn:hover {
+            background: transparent;
+            color: var(--branco);
+            border-color: var(--branco);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--branco);
+            border-color: var(--branco);
+            margin-left: 1rem;
+        }
+
+        .btn-outline:hover {
+            background: var(--branco);
+            color: var(--verde-musgo);
+        }
+
+        /* Seções gerais */
+        section {
+            padding: 6rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--verde-musgo);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--texto-claro);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .divider {
+            width: 60px;
+            height: 2px;
+            background: var(--marrom);
+            margin: 1.5rem auto;
+            opacity: 0.6;
+        }
+
+        /* Sobre */
+        .sobre {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .sobre-img {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(45,74,62,0.15);
+        }
+
+        .sobre-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s;
+        }
+
+        .sobre-img:hover img {
+            transform: scale(1.05);
+        }
+
+        .sobre-img::before {
+            content: '';
+            position: absolute;
+            inset: -20px;
+            border: 1px solid var(--verde-musgo);
+            border-radius: 28px;
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .sobre-texto h2 {
+            font-size: 2.5rem;
+            color: var(--verde-musgo);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .sobre-texto p {
+            color: var(--texto-claro);
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: rgba(45,74,62,0.08);
+            color: var(--verde-musgo);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin: 0.3rem;
+        }
+
+        /* Produtos */
+        .produtos {
+            background: var(--branco);
+            border-radius: 30px;
+            padding: 5rem 4rem;
+            margin: 2rem auto;
+        }
+
+        .grid-produtos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .card-produto {
+            background: var(--creme);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s;
+            border: 1px solid rgba(45,74,62,0.06);
+        }
+
+        .card-produto:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(45,74,62,0.12);
+        }
+
+        .card-produto img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-produto-info {
+            padding: 1.5rem;
+        }
+
+        .card-produto-info h3 {
+            color: var(--verde-musgo);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-produto-info p {
+            color: var(--texto-claro);
+            font-size: 0.95rem;
+        }
+
+        /* Galeria */
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 280px;
+            gap: 1rem;
+        }
+
+        .galeria-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .galeria-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+        }
+
+        .galeria-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .galeria-item.tall {
+            grid-row: span 2;
+        }
+
+        .galeria-item.wide {
+            grid-column: span 2;
+        }
+
+        .galeria-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(45,74,62,0.7), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+        }
+
+        .galeria-item:hover .galeria-overlay {
+            opacity: 1;
+        }
+
+        .galeria-overlay span {
+            color: var(--branco);
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        /* Localização */
+        .localizacao {
+            background: var(--verde-musgo);
+            color: var(--branco);
+            border-radius: 30px;
+            padding: 5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .localizacao-info h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .localizacao-info p {
+            opacity: 0.9;
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .localizacao-info .icon {
+            width: 24px;
+            height: 24px;
+            opacity: 0.8;
+        }
+
+        .horario {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .horario h4 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.8;
+        }
+
+        .horario p {
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .mapa {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mapa img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.3;
+        }
+
+        .mapa-link {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: var(--branco);
+            text-decoration: none;
+        }
+
+        .mapa-link svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--texto);
+            color: rgba(255,255,255,0.7);
+            padding: 4rem 5% 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .social-links a {
+            color: var(--branco);
+            opacity: 0.7;
+            transition: opacity 0.3s;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            opacity: 1;
+        }
+
+        .social-links svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            margin-top: 2rem;
+            opacity: 0.5;
+        }
+
+        /* Responsivo */
+        @media (max-width: 900px) {
+            .nav-links {
+                display: none;
+            }
+
+            .menu-mobile {
+                display: flex;
+            }
+
+            .hero {
+                margin-top: 70px;
+                height: 80vh;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .sobre {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .sobre-img::before {
+                display: none;
+            }
+
+            .produtos {
+                padding: 3rem 2rem;
+            }
+
+            .galeria-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-auto-rows: 200px;
+            }
+
+            .galeria-item.wide {
+                grid-column: span 2;
+            }
+
+            .localizacao {
+                grid-template-columns: 1fr;
+                padding: 3rem 2rem;
+                gap: 2rem;
+            }
+
+            .btn-outline {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+
+            .hero .btn {
+                display: block;
+                margin: 0.5rem auto;
+                max-width: 280px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .galeria-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .galeria-item.wide,
+            .galeria-item.tall {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+        }
+
+        /* Animações suaves */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo-nav">
+            <img src="logo.jpeg" alt="Paraíso das Plantas">
+            <span>Paraíso das Plantas</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#inicio">Início</a></li>
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#produtos">Produtos</a></li>
+            <li><a href="#galeria">Galeria</a></li>
+            <li><a href="#localizacao">Localização</a></li>
+        </ul>
+        <div class="menu-mobile">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <section class="hero" id="inicio">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <img src="logo.jpeg" alt="Logo Paraíso das Plantas" class="hero-logo">
+            <h1>Paraíso das Plantas de Ibiúna</h1>
+            <p>Desde 2007 cultivando beleza, verde e vida na região de Ibiúna. Plantas, flores, vasos e presentes para transformar seu espaço.</p>
+            <div>
+                <a href="#produtos" class="btn">Conhecer Produtos</a>
+                <a href="#localizacao" class="btn btn-outline">Como Chegar</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre">
+        <div class="sobre">
+            <div class="sobre-img fade-in">
+                <img src="Interior.jpg" alt="Interior da loja">
+            </div>
+            <div class="sobre-texto fade-in">
+                <h2>Um refúgio verde em Ibiúna</h2>
+                <p>O Paraíso das Plantas de Ibiúna é mais que uma floricultura — é um espaço onde a natureza se encontra com o cuidado e a dedicação de quem entende de plantas.</p>
+                <p>Localizado às margens da Rodovia Bunjiro Nakao, nosso viveiro oferece uma experiência única de compra, com ambientação rústica, atendimento personalizado e uma variedade imensa de espécies.</p>
+                <div style="margin-top: 1.5rem;">
+                    <span class="tag">Plantas Ornamentais</span>
+                    <span class="tag">Suculentas</span>
+                    <span class="tag">Vasos</span>
+                    <span class="tag">Presentes</span>
+                    <span class="tag">Paisagismo</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="produtos" id="produtos">
+        <div class="section-header fade-in">
+            <h2>Nossos Produtos</h2>
+            <div class="divider"></div>
+            <p>De suculentas delicadas a palmeiras imponentes, temos a planta perfeita para cada momento e espaço.</p>
+        </div>
+        <div class="grid-produtos">
+            <div class="card-produto fade-in">
+                <img src="prod1.jpeg" alt="Plantas tropicais">
+                <div class="card-produto-info">
+                    <h3>Plantas Tropicais</h3>
+                    <p>Costela-de-adão, samambaias, palmeiras e outras espécies para ambientes internos e externos.</p>
+                </div>
+            </div>
+            <div class="card-produto fade-in">
+                <img src="prod2.jpeg" alt="Bonsai e ornamentais">
+                <div class="card-produto-info">
+                    <h3>Ornamentais & Bonsai</h3>
+                    <p>Árvores e arbustos trabalhados com técnica e paciência para trazer harmonia ao seu jardim.</p>
+                </div>
+            </div>
+            <div class="card-produto fade-in">
+                <img src="prod3.jpeg" alt="Flores e coloridas">
+                <div class="card-produto-info">
+                    <h3>Flores e Coloridas</h3>
+                    <p>Kalanchoês, orquídeas, lírios e flores do campo para alegrar qualquer ambiente.</p>
+                </div>
+            </div>
+            <div class="card-produto fade-in">
+                <img src="prod4.jpeg" alt="Suculentas">
+                <div class="card-produto-info">
+                    <h3>Suculentas & Cactos</h3>
+                    <p>Diversas variedades em tamanhos e cores diferentes. Fáceis de cuidar e cheias de charme.</p>
+                </div>
+            </div>
+            <div class="card-produto fade-in">
+                <img src="prod5.jpeg" alt="Arranjos de presente">
+                <div class="card-produto-info">
+                    <h3>Arranjos de Presente</h3>
+                    <p>Composições especiais embaladas com carinho para datas comemorativas e surpresas.</p>
+                </div>
+            </div>
+            <div class="card-produto fade-in">
+                <img src="prod6.jpeg" alt="Orquídeas">
+                <div class="card-produto-info">
+                    <h3>Orquídeas Exóticas</h3>
+                    <p>Phalaenopsis, dendrobiums e outras variedades para presentear com sofisticação.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="galeria">
+        <div class="section-header fade-in">
+            <h2>Nosso Espaço</h2>
+            <div class="divider"></div>
+            <p>Conheça o viveiro, a loja de vasos e as estufas onde cultivamos nossas plantas.</p>
+        </div>
+        <div class="galeria-grid">
+            <div class="galeria-item tall fade-in">
+                <img src="Interior1.jpg" alt="Estufa">
+                <div class="galeria-overlay">
+                    <span>Estufa Principal</span>
+                </div>
+            </div>
+            <div class="galeria-item wide fade-in">
+                <img src="Fachada.jpg" alt="Fachada aérea">
+                <div class="galeria-overlay">
+                    <span>Vista Aérea</span>
+                </div>
+            </div>
+            <div class="galeria-item fade-in">
+                <img src="Opcoes1.jpg" alt="Suculentas">
+                <div class="galeria-overlay">
+                    <span>Suculentas</span>
+                </div>
+            </div>
+            <div class="galeria-item fade-in">
+                <img src="Opcoes2.jpg" alt="Plantas em bancadas">
+                <div class="galeria-overlay">
+                    <span>Bancadas</span>
+                </div>
+            </div>
+            <div class="galeria-item wide fade-in">
+                <img src="Loja.jpg" alt="Loja de vasos">
+                <div class="galeria-overlay">
+                    <span>Loja de Vasos</span>
+                </div>
+            </div>
+            <div class="galeria-item fade-in">
+                <img src="Vasos.jpg" alt="Vasos de cimento">
+                <div class="galeria-overlay">
+                    <span>Vasos de Cimento</span>
+                </div>
+            </div>
+            <div class="galeria-item tall fade-in">
+                <img src="Alto.jpg" alt="Vista de cima">
+                <div class="galeria-overlay">
+                    <span>Vista Superior</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="localizacao">
+        <div class="localizacao">
+            <div class="localizacao-info fade-in">
+                <h2>Visite o Paraíso</h2>
+                <p>
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    Rodovia Bunjiro Nakao, km 67,5 — Curral<br>Ibiúna, SP · CEP 18150-000
+                </p>
+                <p>
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                    (15) 3248-XXXX — Ligar para confirmar
+                </p>
+                <p>
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    Atendimento de segunda a sábado
+                </p>
+                
+                <div class="horario">
+                    <h4>Horário de Funcionamento</h4>
+                    <p>Segunda a Sexta: 8h às 18h</p>
+                    <p>Sábado: 8h às 16h</p>
+                    <p>Domingo: Fechado</p>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <a href="https://wa.me/5515999999999" class="btn" style="background: var(--verde-folha); color: white; border-color: var(--verde-folha);">Chamar no WhatsApp</a>
+                </div>
+            </div>
+            <div class="mapa fade-in">
+                <img src="Alto.jpg" alt="Mapa">
+                <a href="https://www.google.com/maps/search/?api=1&query=Para%C3%ADso+das+Plantas+de+Ibi%C3%BAna" target="_blank" class="mapa-link">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    <div>Abrir no Google Maps</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <img src="logo.jpeg" alt="Logo" class="footer-logo">
+            <h3 style="font-family: 'Playfair Display', serif; color: white; font-size: 1.5rem; margin-bottom: 0.5rem;">Paraíso das Plantas de Ibiúna</h3>
+            <p style="opacity: 0.6; margin-bottom: 1.5rem;">CNPJ: 01.791.320/0001-70</p>
+            
+            <div class="social-links">
+                <a href="https://www.instagram.com/paraisodasplantasdeibiuna/" target="_blank" title="Instagram">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </a>
+                <a href="https://www.facebook.com/paraisodasplantasdeibiuna/" target="_blank" title="Facebook">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+            </div>
+            
+            <p>© 2026 Paraíso das Plantas de Ibiúna. Todos os direitos reservados.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.8rem;">Ibiúna, São Paulo — Brasil</p>
+        </div>
+    </footer>
+
+    <script>
+        // Animação de scroll suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Fade in ao scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>
